@@ -8,6 +8,9 @@ install:
 build:
 	$(PACKAGE_MANAGER) run build
 
+dev: 
+	$(PACKAGE_MANAGER) run dev
+
 start:
 	$(PACKAGE_MANAGER) run start
 
