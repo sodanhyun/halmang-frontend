@@ -1,1 +1,1 @@
-// export { emojiMap };
+export { emojiMap } from "./emoji";
