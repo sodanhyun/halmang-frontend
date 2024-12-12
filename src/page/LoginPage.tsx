@@ -1,21 +1,32 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { login } from "../api/auth";
-import { LoginRequest } from "../type/auth";
+import { LoginRequest, LoginResponse } from "../type/auth";
+import BackgroundImage from "/static/images/login-background.svg";
+import HeaderLogo from "/static/images/headerLogo.svg";
+import useAuthStore from "../store/useAuthStore";
+
 
 const LoginPage = () => {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { setUserType } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!id || !password) {
+      setErrorMessage("아이디와 비밀번호를 입력해주세요.");
+      return;
+    }
 
     const requestData: LoginRequest = { id, password };
 
     try {
-      const response = await login(requestData);
-      console.log("로그인 성공:", response);
-      alert("로그인 성공!");
+      const response: LoginResponse = await login(requestData);
+      setUserType(response.userType);
+      navigate("/");
     } catch (error) {
       console.error("로그인 실패:", error);
       setErrorMessage("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
@@ -23,51 +34,57 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md bg-white p-8 rounded shadow-md">
-        <h1 className="text-2xl font-bold text-center mb-4">로그인</h1>
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label htmlFor="id" className="block text-sm font-medium text-gray-700">
-              아이디
-            </label>
+    <div className="relative flex flex-col items-center justify-center min-h-screen bg-white pb-20">
+      <img src={HeaderLogo} className="w-[168px] h-[40px] mb-14" alt="Header Logo" />
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col items-center w-full px-[24px]"
+      >
+        <div className="flex-col justify-start items-start gap-1 w-full mb-[24px]">
+          <div className="text-body3SemiBold mb-[8px]">아이디</div>
+          <div className="h-[54px] px-4 py-[18px] bg-[#f2efeb] rounded-xl flex justify-between items-center focus-within:ring-2 focus-within:ring-illustration-yellow">
             <input
               id="id"
               type="text"
               value={id}
               onChange={(e) => setId(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              placeholder="아이디를 입력하세요"
-              required
+              className="w-full bg-transparent outline-none text-sm font-medium text-primary-brown-950 placeholder:text-[#bdbdbd]"
+              placeholder="아이디를 입력해주세요"
             />
           </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              비밀번호
-            </label>
+        </div>
+        <div className="flex-col justify-start items-start gap-1 w-full mb-[24px]">
+          <div className="text-body3SemiBold mb-[8px]">비밀번호</div>
+          <div className="h-[54px] px-4 py-[18px] bg-[#f2efeb] rounded-xl flex justify-between items-center focus-within:ring-2 focus-within:ring-illustration-yellow">
             <input
               id="password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-              placeholder="비밀번호를 입력하세요"
-              required
+              className="w-full bg-transparent outline-none text-sm font-medium text-primary-brown-950 placeholder:text-[#bdbdbd]"
+              placeholder="비밀번호를 입력해주세요"
             />
           </div>
-          <div>
-            <button
-              type="submit"
-              className="w-full py-2 px-4 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-            >
-              로그인
-            </button>
+        </div>
+        <button
+          type="submit"
+          className="w-full h-[62px] bg-illustration-yellow hover:bg-blue-950 active:bg-blue-950 rounded-[20px] flex justify-center items-center gap-2.5 transition-colors duration-200"
+        >
+          <div className="text-center text-blue-50 text-body3Bold font-['Pretendard']">
+            로그인하기
           </div>
+        </button>
+        <div className="h-[20px] mt-2">
           {errorMessage && (
-            <div className="text-red-500 text-sm text-center mt-2">{errorMessage}</div>
+            <div className="text-sm text-red-500">{errorMessage}</div>
           )}
-        </form>
-      </div>
+        </div>
+      </form>
+      <img
+        src={BackgroundImage}
+        alt="Background Illustration"
+        className="absolute bottom-0 w-full"
+      />
     </div>
   );
 };
