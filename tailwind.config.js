@@ -3,6 +3,7 @@ module.exports = {
   theme: {
     extend: {
       color: {
+        // NOTE: primary-brown
         "primary-brown-50": "#f8f6f4",
         "primary-brown-100": "#f2efeb",
         "primary-brown-200": "#ddd5cb",
@@ -14,6 +15,32 @@ module.exports = {
         "primary-brown-800": "#644f48",
         "primary-brown-900": "#52413c",
         "primary-brown-950": "#2b211f",
+
+        // NOTE: secondary-brown
+        "secondary-brown-50": "#f6f7f9",
+        "secondary-brown-100": "#ecedf2",
+        "secondary-brown-200": "#d4d7e3",
+        "secondary-brown-300": "#afb4ca",
+        "secondary-brown-400": "#838cad",
+        "secondary-brown-500": "#646d93",
+        "secondary-brown-600": "#4f567a",
+        "secondary-brown-700": "#414763",
+        "secondary-brown-800": "#383c54",
+        "secondary-brown-900": "#303344",
+        "secondary-brown-950": "#22242f",
+        "secondary-brown-950/80%": "#2A2A35",
+
+        // NOTE: gray scale
+        white: "#FFFFFF",
+        "line-50": "#F5F5F5",
+        "line-100": "#E4E4E4",
+        "line-200": "#D9D9D9",
+        background: "#FBFAF9",
+        "text-50": "#BDBDBD",
+        "text-100": "#9E9E9E",
+        "text-200": "#616161",
+        "text-300": "#3D3D3D",
+        "text-400": "#222222",
       },
 
       fontSize: {
