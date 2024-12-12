@@ -1,12 +1,3 @@
-// import homeActiveIcon
-// import homeInactiveIcon
-//
-// import sendActiveIcon
-// import sendInactiveIcon
-//
-// import historyActiveIcon
-// import historyInactiveIcon
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
