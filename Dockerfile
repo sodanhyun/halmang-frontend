@@ -10,8 +10,6 @@ RUN pnpm install
 
 RUN pnpm run build
 
-RUN npm install -g serve
-
 EXPOSE 3000 
 
-CMD ["serve", "build"]
+RUN pnpm dev
