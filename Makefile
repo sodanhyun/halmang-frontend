@@ -17,4 +17,7 @@ start:
 lint:
 	$(PACKAGE_MANAGER) run lint
 
-.PHONY: all install build start lint
+format:
+	$(PACKAGE_MANAGER) run format
+
+.PHONY: all install build start lint format
