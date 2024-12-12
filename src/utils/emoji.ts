@@ -6,7 +6,7 @@ const getStreamEmoji = (e_id: number, sender_id: string): string => {
   if (!userType) return "";
 
   const userRole = userType.name;
-  const emojiSet = streamEmojiMap[e_id - 1];
+  const emojiSet = streamEmojiMap[e_id];
 
   return sender_id === userRole ? emojiSet[1] : emojiSet[0];
 };

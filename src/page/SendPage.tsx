@@ -6,6 +6,7 @@ import SendModal from "../component/SendModal";
 import { sendEmoji } from "../api/emoji";
 import choseDefault from "../../static/images/choose-default.svg";
 import { cardImages } from "../utils/imageMapping";
+import useAuthStore from "../store/useAuthStore";
 
 const SendPage = () => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
