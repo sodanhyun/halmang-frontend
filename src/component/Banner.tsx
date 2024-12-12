@@ -9,7 +9,7 @@ const Banner = ({ role, count }: { role: UserRole; count: number }) => {
   const oppositeRole = judgeUserRole(role);
 
   return (
-    <div className="flex items-center px-[16px] py-[13px] bg-primary-brown-100 rounded-xl">
+    <div className="flex w-full items-center px-[16px] py-[13px] bg-primary-brown-100 rounded-xl">
       <div className="flex items-center gap-3">
         <img src={bannerImage} alt="banner" />
         <p className="text-primary-brown-950 text-primary-brown-950 text-labelSemiBold">

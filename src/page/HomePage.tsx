@@ -1,4 +1,6 @@
+import { Banner } from "../component";
 import GreetingButton from "../component/GreetingButton";
+import { UserRole } from "../type/user";
 
 const HomePage = () => {
   const handleButtonClick = () => {
@@ -6,10 +8,12 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center">
-      {/* <GreetingButton onClick={handleButtonClick} /> */}
+    <>
+      {/* NOTE: 더미 데이터입니다. 이후 api 요청을 통해 값을 채워넣어야 합니다. */}
+      <Banner role={UserRole.PARENT} count={3} />
       <h1>Home Page</h1>
-    </div>
+      <GreetingButton onClick={handleButtonClick} />
+    </>
   );
 };
 

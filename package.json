@@ -17,6 +17,7 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
+    "@savvywombat/tailwindcss-grid-areas": "^4.0.0",
     "@types/node": "^22.10.2",
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
