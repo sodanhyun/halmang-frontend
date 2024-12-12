@@ -9,3 +9,7 @@
   font-display: swap;
   src: url("../static/font/PretendardVariable.woff2") format("woff2-variations");
 }
+
+.stack > * {
+  transform: none !important;
+}
