@@ -1,5 +1,9 @@
 // import homeActiveIcon
 // import homeInactiveIcon
+//
+// import sendActiveIcon
+// import sendInactiveIcon
+//
 // import historyActiveIcon
 // import historyInactiveIcon
 
@@ -19,8 +23,9 @@ const NavBarIcon = ({ activeIcon, inactiveIcon, title }) => {
 const NavBar = () => {
   return (
     <nav>
-      <NavBarIcon activeIcon={homeActiveIcon} inactiveIcon={homeInactiveIcon} title="Home" />
-      <NavBarIcon activeIcon={historyActiveIcon} inactiveIcon={historyInactiveIcon} title="History" />
+      <NavBarIcon activeIcon={homeActiveIcon} inactiveIcon={homeInactiveIcon} title="홈" />
+      <NavBarIcon activeIcon={sendActiveIcon} inactiveIcon={sendInactiveIcon} title="보내기" />
+      <NavBarIcon activeIcon={historyActiveIcon} inactiveIcon={historyInactiveIcon} title="이전 메시지" />
     </nav>
   );
 };
