@@ -31,7 +31,7 @@ const HistoryContainer = ({ e_id, role, time }: { e_id: number; role: UserRole; 
 
 const HistoryStream = () => {
   return (
-    <div className="flex flex-col items-center h-[503px] overflow-y-auto">
+    <div className="flex flex-col items-center h-[503px] overflow-y-auto grow">
       <HistoryContainer e_id={2} role={UserRole.CHILD} time="20:49" />
       <HistoryContainer e_id={1} role={UserRole.PARENT} time="20:49" />
       <HistoryContainer e_id={2} role={UserRole.CHILD} time="20:49" />

@@ -18,7 +18,7 @@ const CalendarDay = ({
   };
 
   return (
-    <div className="flex justify-center items-center gap-[32px] padding-x-[24px] h-[58px]">
+    <div className="flex justify-center items-center gap-[32px] padding-x-[24px] h-[58px] mb-[24px]">
       <img className="cursor-pointer" src={leftArrow} onClick={handlePrevDay} alt="leftArrow" />
       <p className="text-body1SemiBold text-primary-brown-950">{yyyymmdd}</p>
       <img className="cursor-pointer" src={rightArrow} alt="rightArrow" onClick={handleNextDay} />
