@@ -17,26 +17,13 @@ interface NavBarIconProps {
   onClick: () => void;
 }
 
-const NavBarIcon = ({
-  activeIcon,
-  inactiveIcon,
-  title,
-  isActive,
-  link,
-  onClick,
-}: NavBarIconProps) => {
+const NavBarIcon = ({ activeIcon, inactiveIcon, title, isActive, link, onClick }: NavBarIconProps) => {
   return (
     <Link
       to={link}
-      className={`flex flex-col items-center cursor-pointer ${isActive ? "text-black" : "text-gray-400"
-        }`}
-      onClick={onClick}
-    >
-      <img
-        src={isActive ? activeIcon : inactiveIcon}
-        alt={title}
-        className="w-6 h-6 mb-1"
-      />
+      className={`flex flex-col items-center cursor-pointer ${isActive ? "text-black" : "text-gray-400"}`}
+      onClick={onClick}>
+      <img src={isActive ? activeIcon : inactiveIcon} alt={title} className="w-6 h-6 mb-1" />
       <p className="text-sm">{title}</p>
     </Link>
   );
