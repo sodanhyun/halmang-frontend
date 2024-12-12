@@ -67,7 +67,7 @@ const HomePage = () => {
 
   return (
     <>
-      {/* TODO: 더미 데이터입니다. 이후 api 요청을 통해 값을 채워넣어야 합니다. */}
+      {/* TODO: UserRole 전역 상태관리로 바꿔야함 */}
       <Banner role={UserRole.PARENT} count={count} />
       <h1 className="text-primary-brown-950 text-heading1Bold">오늘 받은 안부</h1>
       <HomePageCardStack
