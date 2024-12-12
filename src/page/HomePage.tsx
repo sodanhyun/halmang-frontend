@@ -2,11 +2,12 @@ import { SetStateAction, useCallback, useEffect, useState } from "react";
 import Banner from "../component/Banner";
 import cardBackground from "../../static/images/card-background.svg";
 import GreetingConfirmButton from "../component/GreetingConfirmButton";
-import { getEmojiCount, getUnreadEmojis, markEmojiAsRead } from "../api/emoji";
+import { getEmojiCount, getSseSession, getUnreadEmojis, markEmojiAsRead } from "../api/emoji";
 import { EmojiReadResponse } from "../type/emoji";
 import { emojiMap } from "../constants";
 import noHistoryImage from "../../static/images/no_history.svg";
 import readAllEmojiImage from "../../static/images/complete.svg";
+import useAuthStore from "../store/useAuthStore";
 
 const HomePageCard = ({
   src,
@@ -27,9 +28,7 @@ const HomePageCard = ({
           <div className="text-center text-[#565873] text-sm font-bold font-['Pretendard'] leading-tight">
             {currentIndex}
           </div>
-          <div className="text-center text-[#d7d8e0] text-sm font-medium font-['Pretendard'] leading-tight">
-            /
-          </div>
+          <div className="text-center text-[#d7d8e0] text-sm font-medium font-['Pretendard'] leading-tight">/</div>
           <div className="text-center text-[#d7d8e0] text-sm font-medium font-['Pretendard'] leading-tight">
             {totalCount}
           </div>
@@ -68,6 +67,8 @@ const HomePageCardStack: React.FC<HomePageCardStackProps & { count: number }> = 
         setIsLoading(false);
       });
   }, []);
+
+  console.log("emojis", emojis);
 
   if (isLoading) {
     return null;
@@ -121,8 +122,41 @@ const HomePage = () => {
       setEmojis(res);
       setTotalCount(res.length);
     });
-  }, []);
 
+    //SSE settings
+    const eventSource = new EventSource('/api/sse');
+    eventSource.onmessage = (event) => {
+      const message = event.data;
+      console.log("message: " + message);
+      if(message === "child" || message === "parent") {
+        const receiverId = message;
+        console.log("receiverId: " + receiverId);
+        const authStorage = localStorage.getItem("auth-storage");
+        if(authStorage) {
+          const userId = JSON.parse(authStorage).state.userType.name;
+          console.log("userId: " + userId);
+          if(receiverId === userId) {
+            getUnreadEmojis().then((res) => {
+              setEmojis(res);
+              setTotalCount(res.length);
+            });
+            getEmojiCount().then((res) => {
+              setCount(res.count);
+            });
+          }
+        };
+      }
+      
+    }
+    eventSource.onerror = (event) => {
+      console.error("Error occurred: ", event);
+      eventSource.close();
+    }
+    return () => {
+      eventSource.close();
+    };
+    //SSE end
+  }, []);
 
   useEffect(() => {
     getEmojiCount().then((res) => {
@@ -137,11 +171,7 @@ const HomePage = () => {
 
     markEmojiAsRead(sortedEmojis[0].send_seq)
       .then(() => {
-        setEmojis((prev) =>
-          prev
-            ? prev.filter((emoji) => emoji.send_seq !== sortedEmojis[0].send_seq)
-            : []
-        );
+        setEmojis((prev) => (prev ? prev.filter((emoji) => emoji.send_seq !== sortedEmojis[0].send_seq) : []));
         setCurrentIndex((prevIndex) => prevIndex + 1);
       })
       .catch((error) => {
@@ -149,22 +179,14 @@ const HomePage = () => {
       });
   }, [emojis]);
 
-  const buttonText =
-    count === 0 || (count > 0 && (!emojis || emojis.length === 0))
-      ? "안부 보내기"
-      : "안부 확인하기";
+  const buttonText = count === 0 || (count > 0 && (!emojis || emojis.length === 0)) ? "안부 보내기" : "안부 확인하기";
 
-  const onNavigate =
-    count === 0 || (count > 0 && (!emojis || emojis.length === 0))
-      ? () => { }
-      : undefined;
+  const onNavigate = count === 0 || (count > 0 && (!emojis || emojis.length === 0)) ? () => {} : undefined;
 
   return (
     <div className="flex flex-col h-full">
       <Banner count={count} />
-      <h1 className="flex items-center h-[58px] text-primary-brown-950 text-heading1Bold">
-        오늘 받은 안부
-      </h1>
+      <h1 className="flex items-center h-[58px] text-primary-brown-950 text-heading1Bold">오늘 받은 안부</h1>
       <HomePageCardStack
         emojis={emojis}
         setEmojis={setEmojis}
@@ -173,11 +195,7 @@ const HomePage = () => {
         count={count}
       />
       <div className="mt-auto mb-[24px]">
-        <GreetingConfirmButton
-          onClick={handleButtonClick}
-          buttonText={buttonText}
-          onNavigate={onNavigate}
-        />
+        <GreetingConfirmButton onClick={handleButtonClick} buttonText={buttonText} onNavigate={onNavigate} />
       </div>
     </div>
   );
