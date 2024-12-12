@@ -7,11 +7,13 @@ import HistoryPage from "./page/HistoryPage";
 import HomePage from "./page/HomePage";
 import LoginPage from "./page/LoginPage";
 import SendPage from "./page/SendPage";
+import Header from "./widget/Header";
 
 const AppContent = () => {
   return (
     <div className="flex justify-center bg-gray-100 min-h-screen">
       <div className="relative max-w-[390px] w-full bg-white shadow-md selection:bg-green-900 font-[pretendard]">
+        <Header />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/history" element={<HistoryPage />} />
@@ -26,13 +28,16 @@ const AppContent = () => {
 
 const rootElement = document.getElementById("root");
 
-if (rootElement) {
-  const root = ReactDOM.createRoot(rootElement);
-  root.render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </React.StrictMode>
-  );
+if (!rootElement) {
+  throw new Error("Failed to find the root element");
 }
+
+const root = ReactDOM.createRoot(rootElement);
+
+root.render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  </React.StrictMode>
+);

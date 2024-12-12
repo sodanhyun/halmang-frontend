@@ -21,10 +21,20 @@ const NavBarIcon = ({ activeIcon, inactiveIcon, title, isActive, link, onClick }
   return (
     <Link
       to={link}
-      className={`flex flex-col items-center cursor-pointer ${isActive ? "text-black" : "text-gray-400"}`}
-      onClick={onClick}>
-      <img src={isActive ? activeIcon : inactiveIcon} alt={title} className="w-6 h-6 mb-1" />
-      <p className="text-sm">{title}</p>
+      className="flex flex-col items-center cursor-pointer"
+      onClick={onClick}
+    >
+      <img
+        src={isActive ? activeIcon : inactiveIcon}
+        alt={title}
+        className="w-6 h-6 mb-1"
+      />
+      <div
+        className={`text-center text-xs font-semibold font-['Pretendard'] leading-[18px] ${isActive ? "text-[#3d3e4f]" : "text-[#b3b5c6]"
+          }`}
+      >
+        {title}
+      </div>
     </Link>
   );
 };
