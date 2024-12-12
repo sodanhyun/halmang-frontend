@@ -58,7 +58,7 @@ const NavBar = () => {
   ];
 
   return (
-    <nav className="grid-in-nav bottom-0 h-[62px] left-0 right-0 mx-auto max-w-[390px] w-full bg-white border-t border-gray-200 flex justify-around items-center py-2">
+    <nav className="grid-in-nav bottom-0 h-[62px] left-0 right-0 mx-auto max-w-[390px] w-full bg-white shadow backdrop-blur-sm flex justify-around items-center py-2">
       {tabs.map((tab) => (
         <NavBarIcon
           key={tab.id}
