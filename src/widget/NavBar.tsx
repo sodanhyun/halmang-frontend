@@ -22,9 +22,8 @@ const NavBarIcon = ({ activeIcon, inactiveIcon, title, isActive, link, onClick }
     <Link to={link} className="flex flex-col items-center cursor-pointer" onClick={onClick}>
       <img src={isActive ? activeIcon : inactiveIcon} alt={title} className="w-6 h-6 mb-1" />
       <div
-        className={`text-center text-xs font-semibold font-['Pretendard'] leading-[18px] ${
-          isActive ? "text-[#3d3e4f]" : "text-[#b3b5c6]"
-        }`}>
+        className={`text-center text-xs font-semibold font-['Pretendard'] leading-[18px] ${isActive ? "text-[#3d3e4f]" : "text-[#b3b5c6]"
+          }`}>
         {title}
       </div>
     </Link>
@@ -59,7 +58,7 @@ const NavBar = () => {
   ];
 
   return (
-    <nav className="grid-in-nav bottom-0 h-[62px] left-0 right-0 mx-auto max-w-[390px] w-full bg-white border-t border-gray-200 flex justify-around items-center py-2">
+    <nav className="grid-in-nav bottom-0 h-[62px] left-0 right-0 mx-auto max-w-[390px] w-full bg-white shadow backdrop-blur-sm flex justify-around items-center py-2">
       {tabs.map((tab) => (
         <NavBarIcon
           key={tab.id}

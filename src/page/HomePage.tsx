@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Banner } from "../component";
-import GreetingButton from "../component/GreetingButton";
 import { UserRole } from "../type/user";
 import cardBackground from "../../static/images/card-background.svg";
 import card01Lg from "../../static/images/card_01_lg.svg";
