@@ -2,7 +2,7 @@ FROM krmp-d2hub-idock.9rum.cc/goorm/node:18 AS build
 
 WORKDIR /usr/src/app
 
-COPY krampoline/ ./
+COPY . .
 
 RUN corepack enable
 
