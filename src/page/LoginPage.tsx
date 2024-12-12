@@ -1,13 +1,17 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { login } from "../api/auth";
-import { LoginRequest } from "../type/auth";
+import { LoginRequest, LoginResponse } from "../type/auth";
 import BackgroundImage from "/static/images/login-background.svg";
 import HeaderLogo from "/static/images/headerLogo.svg";
+import useAuthStore from "../store/useAuthStore";
 
 const LoginPage = () => {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { setUserType } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,8 +23,9 @@ const LoginPage = () => {
     const requestData: LoginRequest = { id, password };
 
     try {
-      const response = await login(requestData);
-      console.log("로그인 성공:", response);
+      const response: LoginResponse = await login(requestData);
+      setUserType(response.userType);
+      navigate("/");
     } catch (error) {
       console.error("로그인 실패:", error);
       setErrorMessage("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
