@@ -56,7 +56,6 @@ const HomePageCardStack: React.FC<HomePageCardStackProps & { count: number }> = 
 
   useEffect(() => {
     setIsLoading(true);
-<<<<<<< Updated upstream
     getUnreadEmojis()
       .then((res) => {
         setEmojis(res);
@@ -70,9 +69,6 @@ const HomePageCardStack: React.FC<HomePageCardStackProps & { count: number }> = 
   }, []);
 
   console.log("emojis", emojis);
-=======
-  }, [setEmojis]);
->>>>>>> Stashed changes
 
   if (isLoading) {
     return null;
@@ -179,10 +175,6 @@ const HomePage = () => {
         console.error("Error marking emoji as read:", error);
       });
   }, [emojis]);
-
-  const buttonText = count === 0 || (count > 0 && (!emojis || emojis.length === 0)) ? "안부 보내기" : "안부 확인하기";
-
-  const onNavigate = count === 0 || (count > 0 && (!emojis || emojis.length === 0)) ? () => {} : undefined;
 
   const buttonText = count === 0 || (count > 0 && (!emojis || emojis.length === 0)) ? "안부 보내기" : "안부 확인하기";
 
