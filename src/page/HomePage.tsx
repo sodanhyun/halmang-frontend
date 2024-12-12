@@ -2,9 +2,7 @@ import { SetStateAction, useEffect, useState } from "react";
 import { Banner } from "../component";
 import { UserRole } from "../type/user";
 import cardBackground from "../../static/images/card-background.svg";
-import card01Lg from "../../static/images/card_01_lg.svg";
 import GreetingConfirmButton from "../component/GreetingConfirmButton";
-import Bubbles from "../component/Bubbles";
 import { getEmojiCount, getUnreadEmojis, markEmojiAsRead } from "../api/emoji";
 import { EmojiHistoryResponse, EmojiReadResponse, EmojiSendRequest } from "../type/emoji";
 import { emojiMap } from "../constants";
@@ -33,7 +31,7 @@ const HomePageCardStack: React.FC<HomePageCardStackProps> = ({ emojis, setEmojis
         console.error("Error fetching unread emojis:", error);
       });
   }, []);
-  
+
   return (
     <div className="mb-[30px] flex items-center justify-center">
       <div className="stack">
@@ -51,9 +49,9 @@ const HomePage = () => {
   const [count, setCount] = useState(0);
 
   const handleButtonClick = () => {
-    if(!emojis) return;
+    if (!emojis) return;
     markEmojiAsRead(emojis[0].send_seq).then(() => {
-      setEmojis([ ...emojis.slice(1) ]);
+      setEmojis([...emojis.slice(1)]);
     }).catch((error) => {
       console.error("Error marking emoji as read:", error);
     });

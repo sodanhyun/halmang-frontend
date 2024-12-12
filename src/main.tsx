@@ -14,7 +14,7 @@ const AppContent = () => {
     <div className="flex justify-center bg-gray-100 min-h-screen">
       <div className="grid grid-areas-layout grid-cols-layout grid-rows-layout gap-x-4 relative max-w-[390px] w-full bg-white shadow-md selection:bg-green-900 font-[pretendard]">
         <Header />
-        <main className="grid-in-main my-3 px-4">
+        <main className="grid-in-main my-3 px-[24px]">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/history" element={<HistoryPage />} />

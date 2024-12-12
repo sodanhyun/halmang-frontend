@@ -1,19 +1,71 @@
-import React from "react";
-import SendButtonContainer from "../component/SendButtonContainer";
+import React, { useState } from "react";
+import ImageSelector from "../component/ImageSelector";
+import GreetingSendButton from "../component/GreetingSendButton";
+import MessageIcon from "../../static/images/Message.svg";
+import SendModal from "../component/SendModal";
+import { sendEmoji } from "../api/emoji";
 
 const SendPage = () => {
-  const handleCancelClick = () => {
-    console.log("다시 고르기 버튼 클릭");
-  };
+  const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const handleSendClick = () => {
-    console.log("보내기 버튼 클릭");
+    if (selectedCardId !== null) {
+      setIsModalVisible(true);
+    } else {
+      alert("카드를 선택해주세요!");
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleConfirmSend = async () => {
+    if (selectedCardId === null) {
+      alert("카드를 선택해주세요!");
+      return;
+    }
+
+    try {
+      const requestData = {
+        e_id: selectedCardId - 1,
+        receiver_id: "child",
+      };
+      await sendEmoji(requestData);
+      alert("안부를 전송했습니다!");
+      setIsModalVisible(false);
+    } catch (error) {
+      console.error("전송 실패:", error);
+      alert("안부 전송에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
-    <div>
-      <h1 className="mb-4 text-xl font-bold">안부 보내기</h1>
-      <SendButtonContainer onCancelClick={handleCancelClick} onSendClick={handleSendClick} />
+    <div className="flex flex-col items-center justify-between w-full h-full">
+      <div className="flex items-center justify-center mt-6 mb-6 text-body1SemiBold text-primary-brown-950">
+        <span className="mr-[8px]">어떤 안부를 전할까요?</span>
+        <img src={MessageIcon} alt="Message Icon" className="w-5 h-5" />
+      </div>
+      <ImageSelector onSelect={setSelectedCardId} />
+      <div className="mt-auto w-full">
+        <GreetingSendButton
+          onClick={handleSendClick}
+          isDisabled={selectedCardId === null}
+        />
+      </div>
+      {isModalVisible && (
+        <SendModal
+          visible={isModalVisible}
+          onClose={handleCloseModal}
+          onConfirm={handleConfirmSend}
+          selectedImage={
+            selectedCardId !== null
+              ? `/static/images/card_0${selectedCardId}_md.svg`
+              : "/static/images/choose-default.svg"
+          }
+        />
+      )}
     </div>
   );
 };
