@@ -1,11 +1,11 @@
 import { SetStateAction, useEffect, useState } from "react";
-import { Banner } from "../component";
-import { UserRole } from "../type/user";
+import Banner from "../component/Banner";
 import cardBackground from "../../static/images/card-background.svg";
 import GreetingConfirmButton from "../component/GreetingConfirmButton";
 import { getEmojiCount, getUnreadEmojis, markEmojiAsRead } from "../api/emoji";
-import { EmojiHistoryResponse, EmojiReadResponse, EmojiSendRequest } from "../type/emoji";
+import { EmojiReadResponse } from "../type/emoji";
 import { emojiMap } from "../constants";
+// import ToastPopup from "../component/ToastPopup";
 
 const HomePageCard = ({ src, alt }: { src: string; alt: string }) => {
   return (
@@ -21,7 +21,6 @@ interface HomePageCardStackProps {
 }
 
 const HomePageCardStack: React.FC<HomePageCardStackProps> = ({ emojis, setEmojis }) => {
-
   useEffect(() => {
     getUnreadEmojis()
       .then((res) => {
@@ -30,10 +29,10 @@ const HomePageCardStack: React.FC<HomePageCardStackProps> = ({ emojis, setEmojis
       .catch((error) => {
         console.error("Error fetching unread emojis:", error);
       });
-  }, []);
+  }, [setEmojis]);
 
   return (
-    <div className="mb-[30px] flex items-center justify-center">
+    <div className="flex items-center justify-center">
       <div className="stack">
         {emojis?.map((emoji) => (
           <HomePageCard key={emoji.e_id} src={emojiMap[emoji.e_id]} alt="emoji" />
@@ -48,35 +47,33 @@ const HomePage = () => {
   const [emojis, setEmojis] = useState<EmojiReadResponse[]>();
   const [count, setCount] = useState(0);
 
-  const handleButtonClick = () => {
-    if (!emojis) return;
-    markEmojiAsRead(emojis[0].send_seq).then(() => {
-      setEmojis([...emojis.slice(1)]);
-    }).catch((error) => {
-      console.error("Error marking emoji as read:", error);
-    });
-  };
-
   useEffect(() => {
     getEmojiCount().then((res) => {
       setCount(res.count);
-    })
+    });
   }, []);
 
-  return (
-    <>
-      {/* TODO: UserRole 전역 상태관리로 바꿔야함 */}
-      <Banner role={UserRole.PARENT} count={count} />
-      <h1 className="text-primary-brown-950 text-heading1Bold">오늘 받은 안부</h1>
-      <HomePageCardStack
-        emojis={emojis}
-        setEmojis={setEmojis}
-      />
+  const handleButtonClick = () => {
+    if (!emojis || emojis.length === 0) return;
 
-      <div>
+    markEmojiAsRead(emojis[0].send_seq)
+      .then(() => {
+        setEmojis((prev) => (prev ? prev.slice(1) : []));
+      })
+      .catch((error) => {
+        console.error("Error marking emoji as read:", error);
+      });
+  };
+
+  return (
+    <div className="flex flex-col h-full">
+      <Banner count={count} />
+      <h1 className="flex items-center h-[58px] text-primary-brown-950 text-heading1Bold">오늘 받은 안부</h1>
+      <HomePageCardStack emojis={emojis} setEmojis={setEmojis} />
+      <div className="mt-auto mb-[24px]">
         <GreetingConfirmButton onClick={handleButtonClick} />
       </div>
-    </>
+    </div>
   );
 };
 

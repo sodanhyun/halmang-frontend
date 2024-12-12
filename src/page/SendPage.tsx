@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ImageSelector from "../component/ImageSelector";
 import GreetingSendButton from "../component/GreetingSendButton";
 import MessageIcon from "../../static/images/Message.svg";
 import SendModal from "../component/SendModal";
 import { sendEmoji } from "../api/emoji";
+import choseDefault from "../../static/images/choose-default.svg";
+import { cardImages } from "../utils/imageMapping";
 
 const SendPage = () => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
+
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
+
+  const { receiver_id } = useAuthStore();
 
   const handleSendClick = () => {
     if (selectedCardId !== null) {
@@ -27,10 +32,15 @@ const SendPage = () => {
       return;
     }
 
+    if (!receiver_id) {
+      alert("수신자 정보가 없습니다. 다시 시도해주세요.");
+      return;
+    }
+
     try {
       const requestData = {
         e_id: selectedCardId - 1,
-        receiver_id: "child",
+        receiver_id,
       };
       await sendEmoji(requestData);
       alert("안부를 전송했습니다!");
@@ -49,21 +59,14 @@ const SendPage = () => {
       </div>
       <ImageSelector onSelect={setSelectedCardId} />
       <div className="mt-auto w-full">
-        <GreetingSendButton
-          onClick={handleSendClick}
-          isDisabled={selectedCardId === null}
-        />
+        <GreetingSendButton onClick={handleSendClick} isDisabled={selectedCardId === null} />
       </div>
       {isModalVisible && (
         <SendModal
           visible={isModalVisible}
           onClose={handleCloseModal}
           onConfirm={handleConfirmSend}
-          selectedImage={
-            selectedCardId !== null
-              ? `/static/images/card_0${selectedCardId}_md.svg`
-              : "/static/images/choose-default.svg"
-          }
+          selectedImage={selectedCardId !== null ? cardImages[selectedCardId - 1].largeSrc : choseDefault}
         />
       )}
     </div>
