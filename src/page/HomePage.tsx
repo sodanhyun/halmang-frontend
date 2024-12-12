@@ -1,4 +1,4 @@
-import GreetingButton from "../component/GreetingButton";
+import GreetingConfirmButton from "../component/GreetingConfirmButton";
 
 const HomePage = () => {
   const handleButtonClick = () => {
@@ -7,7 +7,7 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      {/* <GreetingButton onClick={handleButtonClick} /> */}
+      <GreetingConfirmButton onClick={handleButtonClick} />
       <h1>Home Page</h1>
     </div>
   );

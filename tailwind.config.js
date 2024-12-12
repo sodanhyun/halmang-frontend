@@ -47,6 +47,9 @@ module.exports = {
         "illustration-yellow": "#F4B756",
         "illustration-red": "#FB735E",
         "illustration-orange": "#FF891D",
+        "blue-50": "#F6F6F9",
+        "blue-950": "#2A2A35",
+        "gray-200": "#D9D9D9",
       },
 
       fontSize: {
