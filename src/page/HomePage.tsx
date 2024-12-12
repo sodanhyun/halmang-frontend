@@ -31,8 +31,6 @@ const HomePageCardStack: React.FC<HomePageCardStackProps> = ({ emojis, setEmojis
       });
   }, []);
 
-  console.log("emojis", emojis);
-
   return (
     <div className="flex items-center justify-center">
       <div className="stack">
