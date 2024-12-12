@@ -31,33 +31,33 @@ const NavBarIcon = ({ activeIcon, inactiveIcon, title, isActive, link, onClick }
   );
 };
 
+const tabs = [
+  {
+    id: "received",
+    title: "받은 안부",
+    activeIcon: HeartActiveIcon,
+    inactiveIcon: HeartInactiveIcon,
+    link: "/",
+  },
+  {
+    id: "send",
+    title: "안부 보내기",
+    activeIcon: SendActiveIcon,
+    inactiveIcon: SendInactiveIcon,
+    link: "/send",
+  },
+  {
+    id: "history",
+    title: "이전 안부",
+    activeIcon: HistoryActiveIcon,
+    inactiveIcon: HistoryInactiveIcon,
+    link: "/history",
+  },
+];
+
 const NavBar = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState<string>("received");
-
-  const tabs = [
-    {
-      id: "received",
-      title: "받은 안부",
-      activeIcon: HeartActiveIcon,
-      inactiveIcon: HeartInactiveIcon,
-      link: "/",
-    },
-    {
-      id: "send",
-      title: "안부 보내기",
-      activeIcon: SendActiveIcon,
-      inactiveIcon: SendInactiveIcon,
-      link: "/send",
-    },
-    {
-      id: "history",
-      title: "이전 안부",
-      activeIcon: HistoryActiveIcon,
-      inactiveIcon: HistoryInactiveIcon,
-      link: "/history",
-    },
-  ];
 
   useEffect(() => {
     const currentTab = tabs.find((tab) => tab.link === location.pathname);

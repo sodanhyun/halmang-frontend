@@ -10,9 +10,7 @@ import useAuthStore from "../store/useAuthStore";
 
 const SendPage = () => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
-
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-
   const { receiver_id } = useAuthStore();
 
   const handleSendClick = () => {
