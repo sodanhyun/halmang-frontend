@@ -26,15 +26,21 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({ onSelect }) => {
                     />
                 ))}
             </div>
-            {selectedCard !== null && (
-                <div className="mt-4">
+            <div className="mt-4">
+                {selectedCard !== null ? (
                     <img
                         src={cardImages.find((card) => card.id === selectedCard)?.largeSrc}
                         alt={`Selected Card ${selectedCard}`}
                         className="w-[358px] h-[334px]"
                     />
-                </div>
-            )}
+                ) : (
+                    <img
+                        src="/static/images/choose-default.svg"
+                        alt="Default Image"
+                        className="w-[358px] h-[334px]"
+                    />
+                )}
+            </div>
         </div>
     );
 };
