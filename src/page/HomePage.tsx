@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import Banner from "../component/Banner";
 import cardBackground from "../../static/images/card-background.svg";
 import GreetingConfirmButton from "../component/GreetingConfirmButton";
@@ -29,7 +29,9 @@ const HomePageCardStack: React.FC<HomePageCardStackProps> = ({ emojis, setEmojis
       .catch((error) => {
         console.error("Error fetching unread emojis:", error);
       });
-  }, [setEmojis]);
+  }, []);
+
+  console.log("emojis", emojis);
 
   return (
     <div className="flex items-center justify-center">
@@ -53,7 +55,7 @@ const HomePage = () => {
     });
   }, []);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = useCallback(() => {
     if (!emojis || emojis.length === 0) return;
 
     markEmojiAsRead(emojis[0].send_seq)
@@ -63,7 +65,7 @@ const HomePage = () => {
       .catch((error) => {
         console.error("Error marking emoji as read:", error);
       });
-  };
+  }, [emojis]);
 
   return (
     <div className="flex flex-col h-full">
