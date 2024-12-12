@@ -1,25 +1,14 @@
-import { emojiMap } from "../constants";
 import { streamEmojiMap } from "../constants/emoji";
-import { UserRole } from "../type/user";
+import useAuthStore from "../store/useAuthStore";
 
-const getEmoji = (e_id: number) => {
-  const emoji = emojiMap[e_id];
+const getStreamEmoji = (e_id: number, sender_id: string): string => {
+  const { userType } = useAuthStore.getState();
+  if (!userType) return "";
 
-  if (!emoji) {
-    return undefined;
-  }
+  const userRole = userType.name;
+  const emojiSet = streamEmojiMap[e_id - 1];
 
-  return emoji;
+  return sender_id === userRole ? emojiSet[1] : emojiSet[0];
 };
 
-const getStreamEmoji = (e_id: number, role: UserRole) => {
-  const emoji = streamEmojiMap[e_id][role];
-
-  if (!emoji) {
-    return undefined;
-  }
-
-  return emoji;
-};
-
-export { getEmoji, getStreamEmoji };
+export { getStreamEmoji };

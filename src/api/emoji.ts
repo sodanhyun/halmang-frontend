@@ -21,7 +21,7 @@ export const markEmojiAsRead = async (send_seq: number): Promise<void> => {
 
 // emoji 히스토리
 export const getEmojiHistory = async (date: string): Promise<EmojiHistoryResponse[]> => {
-  const response = await axios.get<EmojiHistoryResponse[]>(`${BASE_URL}/emoji/history/`, {
+  const response = await axios.get<EmojiHistoryResponse[]>(`${BASE_URL}/emoji/history`, {
     params: { date },
   });
   return response.data;
@@ -30,5 +30,5 @@ export const getEmojiHistory = async (date: string): Promise<EmojiHistoryRespons
 // emoji 카운트
 export const getEmojiCount = async (): Promise<EmojiCount> => {
   const response = await axios.get<EmojiCount>(`${BASE_URL}/emoji/count`);
-  return response.data
+  return response.data;
 };

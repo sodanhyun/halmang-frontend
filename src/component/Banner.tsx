@@ -1,12 +1,13 @@
-import { UserRole } from "../type/user";
+import useAuthStore from "../store/useAuthStore";
 import ParentBannerImage from "../../static/images/flower_32_32.svg";
 import ChildBannerImage from "../../static/images/tangerine_32_32.svg";
 import { judgeUserRole } from "../utils/user";
 
-const Banner = ({ role, count }: { role: UserRole; count: number }) => {
-  const bannerImage = role === UserRole.PARENT ? ParentBannerImage : ChildBannerImage;
-  const bannerColor = role === UserRole.PARENT ? "text-illustration-yellow" : "text-illustration-red";
-  const oppositeRole = judgeUserRole(role);
+const Banner = ({ count }: { count: number }) => {
+  const { receiver_id } = useAuthStore();
+  const bannerImage = receiver_id === "parent" ? ParentBannerImage : ChildBannerImage;
+  const bannerColor = receiver_id === "parent" ? "text-illustration-yellow" : "text-illustration-red";
+  const oppositeRole = judgeUserRole();
 
   return (
     <div className="flex w-full items-center px-[16px] py-[13px] bg-primary-brown-100 rounded-xl mb-[20px]">

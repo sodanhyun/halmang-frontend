@@ -12,6 +12,8 @@ const SendPage = () => {
 
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
+  const { receiver_id } = useAuthStore();
+
   const handleSendClick = () => {
     if (selectedCardId !== null) {
       setIsModalVisible(true);
@@ -30,10 +32,15 @@ const SendPage = () => {
       return;
     }
 
+    if (!receiver_id) {
+      alert("수신자 정보가 없습니다. 다시 시도해주세요.");
+      return;
+    }
+
     try {
       const requestData = {
         e_id: selectedCardId - 1,
-        receiver_id: "child",
+        receiver_id,
       };
       await sendEmoji(requestData);
       alert("안부를 전송했습니다!");
