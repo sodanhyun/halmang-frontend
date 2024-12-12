@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 import HeartActiveIcon from "/static/images/HeartActiveIcon.svg";
 import HeartInactiveIcon from "/static/images/HeartInactiveIcon.svg";
@@ -31,7 +31,8 @@ const NavBarIcon = ({ activeIcon, inactiveIcon, title, isActive, link, onClick }
 };
 
 const NavBar = () => {
-  const [activeTab, setActiveTab] = useState("received");
+  const location = useLocation();
+  const [activeTab, setActiveTab] = useState<string>("received");
 
   const tabs = [
     {
@@ -56,6 +57,13 @@ const NavBar = () => {
       link: "/history",
     },
   ];
+
+  useEffect(() => {
+    const currentTab = tabs.find((tab) => tab.link === location.pathname);
+    if (currentTab) {
+      setActiveTab(currentTab.id);
+    }
+  }, [location.pathname]);
 
   return (
     <nav className="grid-in-nav bottom-0 h-[62px] left-0 right-0 mx-auto max-w-[390px] w-full bg-white shadow backdrop-blur-sm flex justify-around items-center py-2">
