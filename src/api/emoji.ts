@@ -33,3 +33,9 @@ export const getEmojiCount = async (): Promise<EmojiCount> => {
   const response = await axios.get<EmojiCount>(`${BASE_URL}/emoji/count`);
   return response.data;
 };
+
+// sse session
+export const getSseSession = async (): Promise<String> => {
+  const response = await axios.get<String>(`${BASE_URL}/sse`);
+  return response.data;
+};

@@ -2,11 +2,12 @@ import { SetStateAction, useCallback, useEffect, useState } from "react";
 import Banner from "../component/Banner";
 import cardBackground from "../../static/images/card-background.svg";
 import GreetingConfirmButton from "../component/GreetingConfirmButton";
-import { getEmojiCount, getUnreadEmojis, markEmojiAsRead } from "../api/emoji";
+import { getEmojiCount, getSseSession, getUnreadEmojis, markEmojiAsRead } from "../api/emoji";
 import { EmojiReadResponse } from "../type/emoji";
 import { emojiMap } from "../constants";
 import noHistoryImage from "../../static/images/no_history.svg";
 import readAllEmojiImage from "../../static/images/complete.svg";
+import useAuthStore from "../store/useAuthStore";
 
 const HomePageCard = ({
   src,
@@ -55,6 +56,7 @@ const HomePageCardStack: React.FC<HomePageCardStackProps & { count: number }> = 
 
   useEffect(() => {
     setIsLoading(true);
+<<<<<<< Updated upstream
     getUnreadEmojis()
       .then((res) => {
         setEmojis(res);
@@ -68,6 +70,9 @@ const HomePageCardStack: React.FC<HomePageCardStackProps & { count: number }> = 
   }, []);
 
   console.log("emojis", emojis);
+=======
+  }, [setEmojis]);
+>>>>>>> Stashed changes
 
   if (isLoading) {
     return null;
@@ -121,6 +126,37 @@ const HomePage = () => {
       setEmojis(res);
       setTotalCount(res.length);
     });
+
+    //SSE settings
+    const eventSource = new EventSource('/api/sse');
+    eventSource.onmessage = (event) => {
+      const message = event.data;
+      console.log("message: " + message);
+      if(message === "child" || message === "parent") {
+        const receiverId = message;
+        console.log("receiverId: " + receiverId);
+        const authStorage = localStorage.getItem("auth-storage");
+        if(authStorage) {
+          const userId = JSON.parse(authStorage).state.userType.name;
+          console.log("userId: " + userId);
+          if(receiverId === userId) {
+            getUnreadEmojis().then((res) => {
+              setEmojis(res);
+              setTotalCount(res.length);
+            });
+          }
+        };
+      }
+      
+    }
+    eventSource.onerror = (event) => {
+      console.error("Error occurred: ", event);
+      eventSource.close();
+    }
+    return () => {
+      eventSource.close();
+    };
+    //SSE end
   }, []);
 
   useEffect(() => {
