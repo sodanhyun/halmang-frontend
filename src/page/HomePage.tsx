@@ -67,10 +67,17 @@ const HomePageCardStack: React.FC<HomePageCardStackProps & { count: number }> = 
   return (
     <div className="flex items-center justify-center">
       <div className="stack">
-        {emojis?.map((emoji) => (
-          <HomePageCard key={emoji.e_id} src={emojiMap[emoji.e_id]} alt="emoji" />
-        ))}
-        <img className="w-[342px] h-[426px]" src={cardBackground} alt="cardBackground" />
+        {emojis
+          ?.slice()
+          .sort((a, b) => b.send_seq - a.send_seq)
+          .map((emoji) => (
+            <HomePageCard
+              key={`${emoji.e_id}-${emoji.send_seq}`}
+              src={emojiMap[emoji.e_id]}
+              alt="emoji"
+            />
+          ))}
+        <img className="w-[342px] h-[436px]" src={cardBackground} alt="cardBackground" />
       </div>
     </div>
   );
@@ -89,9 +96,15 @@ const HomePage = () => {
   const handleButtonClick = () => {
     if (!emojis || emojis.length === 0) return;
 
-    markEmojiAsRead(emojis[0].send_seq)
+    const sortedEmojis = [...emojis].sort((a, b) => b.send_seq - a.send_seq);
+
+    markEmojiAsRead(sortedEmojis[0].send_seq)
       .then(() => {
-        setEmojis((prev) => (prev ? prev.slice(1) : []));
+        setEmojis((prev) =>
+          prev
+            ? prev.filter((emoji) => emoji.send_seq !== sortedEmojis[0].send_seq)
+            : []
+        );
       })
       .catch((error) => {
         console.error("Error marking emoji as read:", error);
