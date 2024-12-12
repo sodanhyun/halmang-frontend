@@ -5,6 +5,8 @@ import { judgeUserRole } from "../utils/user";
 
 const Banner = ({ role, count }: { role: UserRole; count: number }) => {
   const bannerImage = role === UserRole.PARENT ? ParentBannerImage : ChildBannerImage;
+  const bannerColor = role === UserRole.PARENT ? "text-illustration-yellow" : "text-illustration-red";
+  const oppositeRole = judgeUserRole(role);
 
   return (
     <div className="flex items-center px-[16px] py-[13px] bg-primary-brown-100 rounded-xl">
@@ -12,10 +14,7 @@ const Banner = ({ role, count }: { role: UserRole; count: number }) => {
         <img src={bannerImage} alt="banner" />
         <p className="text-primary-brown-950 text-primary-brown-950 text-labelSemiBold">
           오늘 {judgeUserRole(role)}님께 받은 안부
-          <span className={`${role === UserRole.PARENT ? "text-illustration-yellow" : "text-illustration-red"}`}>
-            {` ${count}`}
-          </span>
-          건이 있어요!
+          <span className={bannerColor}>{` ${count}건`}</span>이 있어요!
         </p>
       </div>
     </div>
