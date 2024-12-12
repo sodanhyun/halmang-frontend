@@ -2,17 +2,22 @@ import React, { useState } from "react";
 import ImageSelector from "../component/ImageSelector";
 import GreetingSendButton from "../component/GreetingSendButton";
 import MessageIcon from "../../static/images/Message.svg";
+import SendModal from "../component/SendModal";
 
 const SendPage = () => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const handleSendClick = () => {
     if (selectedCardId !== null) {
-      console.log(`카드 ${selectedCardId} 선택 후 전송!`);
-      alert(`카드 ${selectedCardId} 선택 후 전송!`);
+      setIsModalVisible(true);
     } else {
       alert("카드를 선택해주세요!");
     }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -28,6 +33,17 @@ const SendPage = () => {
           isDisabled={selectedCardId === null}
         />
       </div>
+      {isModalVisible && (
+        <SendModal
+          visible={isModalVisible}
+          onClose={handleCloseModal}
+          selectedImage={
+            selectedCardId !== null
+              ? `/static/images/card_0${selectedCardId}_md.svg`
+              : "/static/images/choose-default.svg"
+          }
+        />
+      )}
     </div>
   );
 };
