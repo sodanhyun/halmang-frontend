@@ -6,6 +6,7 @@ import BackgroundImage from "/static/images/login-background.svg";
 import HeaderLogo from "/static/images/headerLogo.svg";
 import useAuthStore from "../store/useAuthStore";
 
+
 const LoginPage = () => {
   const [id, setId] = useState<string>("");
   const [password, setPassword] = useState<string>("");
