@@ -12,7 +12,7 @@ const SendButtonContainer: React.FC<SendButtonContainerProps> = ({
     onSendClick,
 }) => {
     return (
-        <div className="flex gap-4 w-full px-4">
+        <div className="flex gap-4 w-full">
             <div className="flex-1">
                 <CancelButton onClick={onCancelClick} />
             </div>
