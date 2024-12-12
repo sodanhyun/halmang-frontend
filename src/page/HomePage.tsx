@@ -4,7 +4,7 @@ import { UserRole } from "../type/user";
 import cardBackground from "../../static/images/card-background.svg";
 import card01Lg from "../../static/images/card_01_lg.svg";
 import GreetingConfirmButton from "../component/GreetingConfirmButton";
-import Bubbles from "../component/Bubbles";
+// import Bubbles from "../component/Bubbles";
 
 const HomePageCard = ({ src, alt }: { src: string; alt: string }) => {
   return (
