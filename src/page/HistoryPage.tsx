@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Banner } from "../component";
 import { CalendarDay } from "../component/Calendar";
 import HistoryStream from "../component/HistoryStream";
 import { format } from "date-fns";
@@ -25,11 +24,6 @@ const HistoryPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [count, setCount] = useState(0);
   const [history, setHistory] = useState<EmojiHistoryResponse[]>([]);
-
-  fetchEmojiHistory(formatDate(currentDate)).then((response) => {
-    setCount(response.length);
-    setHistory(response);
-  });
 
   useEffect(() => {
     const formattedDate = formatDate(currentDate);
