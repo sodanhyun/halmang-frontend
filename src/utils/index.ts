@@ -1,1 +1,1 @@
-export {};
+export { getEmoji } from "./emoji";
