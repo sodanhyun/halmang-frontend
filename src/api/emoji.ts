@@ -1,7 +1,7 @@
 import axios from "axios";
 import { EmojiHistoryResponse, EmojiReadResponse, EmojiSendRequest } from "../type/emoji";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL;
 
 // 안읽은 emoji 받아오기
 export const getUnreadEmojis = async (): Promise<EmojiReadResponse[]> => {

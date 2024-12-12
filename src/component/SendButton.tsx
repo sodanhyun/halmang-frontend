@@ -13,7 +13,6 @@ const SendButton: React.FC<SendButtonProps> = ({ onClick }) => {
             <div className="text-center text-blue-50 text-body3Bold font-['Pretendard']">
                 보내기
             </div>
-
         </button>
     );
 };

@@ -3,6 +3,7 @@ import ImageSelector from "../component/ImageSelector";
 import GreetingSendButton from "../component/GreetingSendButton";
 import MessageIcon from "../../static/images/Message.svg";
 import SendModal from "../component/SendModal";
+import { sendEmoji } from "../api/emoji";
 
 const SendPage = () => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
@@ -18,6 +19,26 @@ const SendPage = () => {
 
   const handleCloseModal = () => {
     setIsModalVisible(false);
+  };
+
+  const handleConfirmSend = async () => {
+    if (selectedCardId === null) {
+      alert("카드를 선택해주세요!");
+      return;
+    }
+
+    try {
+      const requestData = {
+        e_id: selectedCardId - 1,
+        receiver_id: "child",
+      };
+      await sendEmoji(requestData);
+      alert("안부를 전송했습니다!");
+      setIsModalVisible(false);
+    } catch (error) {
+      console.error("전송 실패:", error);
+      alert("안부 전송에 실패했습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
@@ -37,6 +58,7 @@ const SendPage = () => {
         <SendModal
           visible={isModalVisible}
           onClose={handleCloseModal}
+          onConfirm={handleConfirmSend}
           selectedImage={
             selectedCardId !== null
               ? `/static/images/card_0${selectedCardId}_md.svg`
