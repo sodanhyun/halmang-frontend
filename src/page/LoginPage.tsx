@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/auth";
 import { LoginRequest, LoginResponse } from "../type/auth";
-import BackgroundImage from "/static/images/login-background.svg";
+import BackgroundImage from "../../static/images/login-background.svg";
 import HeaderLogo from "../../static/images/HeaderLogo.svg";
 import useAuthStore from "../store/useAuthStore";
 
