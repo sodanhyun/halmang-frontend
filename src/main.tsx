@@ -37,9 +37,7 @@ if (!rootElement) {
 const root = ReactDOM.createRoot(rootElement);
 
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
-  </React.StrictMode>
+  <BrowserRouter>
+    <AppContent />
+  </BrowserRouter>
 );
