@@ -1,1 +1,0 @@
-export { getEmoji } from "./emoji";

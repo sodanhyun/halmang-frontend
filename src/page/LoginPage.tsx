@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../api/auth";
 import { LoginRequest, LoginResponse } from "../type/auth";
-import BackgroundImage from "/static/images/login-background.svg";
-import HeaderLogo from "/static/images/headerLogo.svg";
+import BackgroundImage from "../../static/images/login-background.svg";
+import HeaderLogo from "../../static/images/HeaderLogo.svg";
 import useAuthStore from "../store/useAuthStore";
-
 
 const LoginPage = () => {
   const [id, setId] = useState<string>("");
@@ -36,10 +35,7 @@ const LoginPage = () => {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen bg-white pb-20">
       <img src={HeaderLogo} className="w-[168px] h-[40px] mb-14" alt="Header Logo" />
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col items-center w-full px-[24px]"
-      >
+      <form onSubmit={handleSubmit} className="flex flex-col items-center w-full px-[24px]">
         <div className="flex-col justify-start items-start gap-1 w-full mb-[24px]">
           <div className="text-body3SemiBold mb-[8px]">아이디</div>
           <div className="h-[54px] px-4 py-[18px] bg-[#f2efeb] rounded-xl flex justify-between items-center focus-within:ring-2 focus-within:ring-illustration-yellow">
@@ -68,23 +64,14 @@ const LoginPage = () => {
         </div>
         <button
           type="submit"
-          className="w-full h-[62px] bg-illustration-yellow hover:bg-blue-950 active:bg-blue-950 rounded-[20px] flex justify-center items-center gap-2.5 transition-colors duration-200"
-        >
-          <div className="text-center text-blue-50 text-body3Bold font-['Pretendard']">
-            로그인하기
-          </div>
+          className="w-full h-[62px] bg-illustration-yellow hover:bg-blue-950 active:bg-blue-950 rounded-[20px] flex justify-center items-center gap-2.5 transition-colors duration-200">
+          <div className="text-center text-blue-50 text-body3Bold font-['Pretendard']">로그인하기</div>
         </button>
         <div className="h-[20px] mt-2">
-          {errorMessage && (
-            <div className="text-sm text-red-500">{errorMessage}</div>
-          )}
+          {errorMessage && <div className="text-sm text-red-500">{errorMessage}</div>}
         </div>
       </form>
-      <img
-        src={BackgroundImage}
-        alt="Background Illustration"
-        className="absolute bottom-0 w-full"
-      />
+      <img src={BackgroundImage} alt="Background Illustration" className="absolute bottom-0 w-full" />
     </div>
   );
 };
