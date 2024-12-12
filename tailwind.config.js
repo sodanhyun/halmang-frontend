@@ -2,7 +2,7 @@ module.exports = {
   content: ["index.html", "./src/**/*.{js,jsx,ts,tsx,vue,html}"],
   theme: {
     extend: {
-      color: {
+      colors: {
         // NOTE: primary-brown
         "primary-brown-50": "#f8f6f4",
         "primary-brown-100": "#f2efeb",
@@ -41,6 +41,12 @@ module.exports = {
         "text-200": "#616161",
         "text-300": "#3D3D3D",
         "text-400": "#222222",
+
+        // NOTE:
+
+        "illustration-yellow": "#F4B756",
+        "illustration-red": "#FB735E",
+        "illustration-orange": "#FF891D",
       },
 
       fontSize: {
