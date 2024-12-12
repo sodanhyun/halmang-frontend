@@ -14,4 +14,12 @@ RUN npm install -g serve
 
 EXPOSE 3000 
 
-RUN pnpm serve build
+COPY ./nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build /app/dist ./dist
+
+RUN chown -R www-data:www-data /var/www/html/dist
+
+EXPOSE 443 80
+
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
