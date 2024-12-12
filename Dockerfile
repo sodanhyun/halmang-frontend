@@ -1,4 +1,4 @@
-FROM krmp-d2hub-idock.9rum.cc/goorm/node:18 AS build
+FROM krmp-d2hub-idock.9rum.cc/goorm/node:18
 
 WORKDIR /usr/src/app
 
@@ -14,4 +14,4 @@ RUN npm install -g serve
 
 EXPOSE 3000 
 
-RUN pnpm serve build
+CMD ["serve", "build"]
