@@ -13,10 +13,12 @@ module.exports = {
       },
       gridTemplateAreas: {
         layout: ["header header header header", "main main main main", "nav nav nav nav"],
+        stream: ["line content"],
       },
 
       gridTemplateColumns: {
         layout: "1fr 1fr 1fr 1fr",
+        stream: "auto 1fr",
       },
 
       gridTemplateRows: {
