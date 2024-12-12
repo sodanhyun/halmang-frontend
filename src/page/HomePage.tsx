@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Banner } from "../component";
 import { UserRole } from "../type/user";
 import cardBackground from "../../static/images/card-background.svg";
 import card01Lg from "../../static/images/card_01_lg.svg";
+import GreetingConfirmButton from "../component/GreetingConfirmButton";
+import Bubbles from "../component/Bubbles";
 
 const HomePageCard = ({ src, alt }: { src: string; alt: string }) => {
   return (
@@ -40,7 +42,10 @@ const HomePage = () => {
       <Banner role={UserRole.PARENT} count={3} />
       <h1 className="text-primary-brown-950 text-heading1Bold">오늘 받은 안부</h1>
       <HomePageCardStack />
-      <GreetingButton onClick={handleButtonClick} />
+
+      <div>
+        <GreetingConfirmButton onClick={handleButtonClick} />
+      </div>
     </>
   );
 };
