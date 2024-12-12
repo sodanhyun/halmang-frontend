@@ -1,6 +1,7 @@
 // 받은(안읽은) emoji 조회
 export interface EmojiReadResponse {
-  e_id: string;
+  send_seq: number;
+  e_id: number;
   sender_id: string;
   receiver_id: string;
   reg_time: string;
@@ -19,4 +20,8 @@ export interface EmojiHistoryResponse {
   sender_id: string;
   receiver_id: string;
   reg_time: string;
+}
+
+export interface EmojiCount {
+  count: number;
 }
