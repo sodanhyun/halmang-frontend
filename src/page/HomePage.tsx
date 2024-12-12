@@ -140,6 +140,9 @@ const HomePage = () => {
               setEmojis(res);
               setTotalCount(res.length);
             });
+            getEmojiCount().then((res) => {
+              setCount(res.count);
+            });
           }
         };
       }
