@@ -4,9 +4,9 @@ const judgeUserRole = (): string => {
   const { receiver_id } = useAuthStore.getState();
   switch (receiver_id) {
     case "parent":
-      return "엄마";
+      return "동백";
     case "child":
-      return "자녀";
+      return "감귤";
     default:
       return "알 수 없음";
   }
