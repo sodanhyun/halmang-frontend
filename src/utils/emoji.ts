@@ -1,6 +1,6 @@
 import { emojiMap } from "../constants";
 
-const getEmoji = (e_id: string) => {
+const getEmoji = (e_id: number) => {
   const emoji = emojiMap[e_id];
 
   if (!emoji) {

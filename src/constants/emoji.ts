@@ -1,13 +1,5 @@
-// import emoji1 from '../assets/emoji1.png';
-// import emoji2 from '../assets/emoji2.png';
-// import emoji3 from '../assets/emoji3.png';
-// import emoji4 from '../assets/emoji4.png';
-// import emoji5 from '../assets/emoji5.png';
+import card_01_lg from "../../static/images/card_01_lg.svg";
+import card_02_lg from "../../static/images/card_02_lg.svg";
+import card_03_lg from "../../static/images/card_03_lg.svg";
 
-// export const emojiMap = {
-//   emoji1,
-//   emoji2,
-//   emoji3,
-//   emoji4,
-//   emoji5,
-// };
+export const emojiMap = [card_01_lg, card_02_lg, card_03_lg];
