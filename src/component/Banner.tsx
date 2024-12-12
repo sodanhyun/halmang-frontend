@@ -14,7 +14,7 @@ const Banner = ({ count }: { count: number }) => {
       <div className="flex items-center gap-3">
         <img src={bannerImage} alt="banner" />
         <p className="text-primary-brown-950 text-labelSemiBold">
-          오늘 {oppositeRole}님께 받은 안부
+          오늘 {oppositeRole}이에게 받은 안부
           <span className={bannerColor}>{` ${count}건`}</span>이 있어요!
         </p>
       </div>

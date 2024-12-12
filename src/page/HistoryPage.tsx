@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CalendarDay } from "../component/Calendar";
 import HistoryStream from "../component/HistoryStream";
 import { format } from "date-fns";
@@ -21,6 +21,7 @@ const fetchEmojiHistory = async (date: string) => {
 };
 
 const HistoryPage = () => {
+  const today = useMemo(() => new Date(), []);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [count, setCount] = useState(0);
   const [history, setHistory] = useState<EmojiHistoryResponse[]>([]);
@@ -45,7 +46,7 @@ const HistoryPage = () => {
     <div className="flex flex-col h-full">
       <CalendarDay yyyymmdd={format(currentDate, "yyyy.MM.dd")} setCurrentDate={setCurrentDate} />
       <HistoryBanner count={count} />
-      <HistoryStream history={history} />
+      <HistoryStream isToday={today.toISOString() === currentDate.toISOString()} history={history} />
     </div>
   );
 };

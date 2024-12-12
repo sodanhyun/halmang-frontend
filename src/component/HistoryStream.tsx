@@ -1,16 +1,25 @@
 import noHistoryImage from "../../static/images/no_history.svg";
+import noPastGreetingImage from "../../static/images/no_past_greeting.svg";
 import HistoryContainer from "./HistoryContainer";
 import { EmojiHistoryResponse } from "../type/emoji";
 
 interface HistoryStreamProps {
+  isToday: boolean;
   history: EmojiHistoryResponse[];
 }
 
-const HistoryStream: React.FC<HistoryStreamProps> = ({ history }) => {
+const HistoryStream: React.FC<HistoryStreamProps> = ({ isToday, history }) => {
   if (history.length === 0) {
+    if (isToday) {
+      return (
+        <div className="flex items-center justify-center h-[503px]">
+          <img src={noHistoryImage} alt="No History" className="w-[240px] h-[296px]" />
+        </div>
+      );
+    }
     return (
       <div className="flex items-center justify-center h-[503px]">
-        <img src={noHistoryImage} alt="No History" className="w-[240px] h-[296px]" />
+        <img src={noPastGreetingImage} alt="No History" className="w-[240px] h-[296px]" />
       </div>
     );
   }
