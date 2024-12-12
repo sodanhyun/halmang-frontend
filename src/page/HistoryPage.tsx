@@ -20,7 +20,7 @@ const HistoryPage = () => {
   return (
     <div className="flex flex-col h-full">
       <CalendarDay yyyymmdd={formatDate(currentDate)} setCurrentDate={setCurrentDate} />
-      <Banner role={UserRole.PARENT} count={3} />
+      <Banner count={3} />
       <HistoryStream />
     </div>
   );
