@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./widget/NavBar";
@@ -10,28 +10,29 @@ import SendPage from "./page/SendPage";
 
 const AppContent = () => {
   return (
-    <div className="relative text-center selection:bg-green-900 font-[pretendard]">
-      <header className="flex min-h-screen flex-col items-center justify-center bg-[#282c34] text-white">
-        <h1 className="text-5xl font-black">Main Content Area</h1>
-      </header>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/history" element={<HistoryPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/send" element={<SendPage />} />
-      </Routes>
-      <NavBar />
+    <div className="flex justify-center bg-gray-100 min-h-screen">
+      <div className="relative max-w-[390px] w-full bg-white shadow-md selection:bg-green-900 font-[pretendard]">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/history" element={<HistoryPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/send" element={<SendPage />} />
+        </Routes>
+        <NavBar />
+      </div>
     </div>
   );
 };
 
-const root = document.getElementById("root");
+const rootElement = document.getElementById("root");
 
-ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
-  </React.StrictMode>,
-  root
-);
+if (rootElement) {
+  const root = ReactDOM.createRoot(rootElement);
+  root.render(
+    <React.StrictMode>
+      <BrowserRouter>
+        <AppContent />
+      </BrowserRouter>
+    </React.StrictMode>
+  );
+}
