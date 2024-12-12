@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { Banner } from "../component";
 import { UserRole } from "../type/user";
 import cardBackground from "../../static/images/card-background.svg";
-import card01Lg from "../../static/images/card_01_lg.svg";
 import GreetingConfirmButton from "../component/GreetingConfirmButton";
-// import Bubbles from "../component/Bubbles";
+import { getEmojiCount, getUnreadEmojis, markEmojiAsRead } from "../api/emoji";
+import { EmojiHistoryResponse, EmojiReadResponse, EmojiSendRequest } from "../type/emoji";
+import { emojiMap } from "../constants";
 
 const HomePageCard = ({ src, alt }: { src: string; alt: string }) => {
   return (
@@ -14,13 +15,29 @@ const HomePageCard = ({ src, alt }: { src: string; alt: string }) => {
   );
 };
 
-/* TODO: /api/emoji/read */
-const HomePageCardStack = () => {
+interface HomePageCardStackProps {
+  emojis: EmojiReadResponse[] | undefined;
+  setEmojis: React.Dispatch<SetStateAction<EmojiReadResponse[] | undefined>>;
+}
+
+const HomePageCardStack: React.FC<HomePageCardStackProps> = ({ emojis, setEmojis }) => {
+
+  useEffect(() => {
+    getUnreadEmojis()
+      .then((res) => {
+        setEmojis(res);
+      })
+      .catch((error) => {
+        console.error("Error fetching unread emojis:", error);
+      });
+  }, []);
+
   return (
     <div className="mb-[30px] flex items-center justify-center">
       <div className="stack">
-        <HomePageCard src={card01Lg} alt="card01Lg" />
-        {/* NOTE: FIXED THIS COMPONENT */}
+        {emojis?.map((emoji) => (
+          <HomePageCard key={emoji.e_id} src={emojiMap[emoji.e_id]} alt="emoji" />
+        ))}
         <img className="w-[342px] h-[426px]" src={cardBackground} alt="cardBackground" />
       </div>
     </div>
@@ -28,20 +45,33 @@ const HomePageCardStack = () => {
 };
 
 const HomePage = () => {
+  const [emojis, setEmojis] = useState<EmojiReadResponse[]>();
   const [count, setCount] = useState(0);
 
   const handleButtonClick = () => {
-    console.log("click");
+    if (!emojis) return;
+    markEmojiAsRead(emojis[0].send_seq).then(() => {
+      setEmojis([...emojis.slice(1)]);
+    }).catch((error) => {
+      console.error("Error marking emoji as read:", error);
+    });
   };
 
-  // useEffect(() => {});
+  useEffect(() => {
+    getEmojiCount().then((res) => {
+      setCount(res.count);
+    })
+  }, []);
 
   return (
     <>
-      {/* TODO: 더미 데이터입니다. 이후 api 요청을 통해 값을 채워넣어야 합니다. */}
-      <Banner role={UserRole.PARENT} count={3} />
+      {/* TODO: UserRole 전역 상태관리로 바꿔야함 */}
+      <Banner role={UserRole.PARENT} count={count} />
       <h1 className="text-primary-brown-950 text-heading1Bold">오늘 받은 안부</h1>
-      <HomePageCardStack />
+      <HomePageCardStack
+        emojis={emojis}
+        setEmojis={setEmojis}
+      />
 
       <div>
         <GreetingConfirmButton onClick={handleButtonClick} />

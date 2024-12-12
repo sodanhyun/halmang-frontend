@@ -1,5 +1,5 @@
 import axios from "axios";
-import { EmojiHistoryResponse, EmojiReadResponse, EmojiSendRequest } from "../type/emoji";
+import { EmojiCount, EmojiHistoryResponse, EmojiReadResponse, EmojiSendRequest } from "../type/emoji";
 
 const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL;
 
@@ -15,7 +15,7 @@ export const sendEmoji = async (data: EmojiSendRequest): Promise<void> => {
 };
 
 // emoji 읽음 보내기
-export const markEmojiAsRead = async (send_seq: string): Promise<void> => {
+export const markEmojiAsRead = async (send_seq: number): Promise<void> => {
   await axios.post(`${BASE_URL}/emoji/read_detail/${send_seq}`);
 };
 
@@ -28,7 +28,7 @@ export const getEmojiHistory = async (date: string): Promise<EmojiHistoryRespons
 };
 
 // emoji 카운트
-export const getEmojiCount = async (): Promise<number> => {
-  const response = await axios.get<number>(`${BASE_URL}/emoji/count/`);
-  return response.data;
+export const getEmojiCount = async (): Promise<EmojiCount> => {
+  const response = await axios.get<EmojiCount>(`${BASE_URL}/emoji/count`);
+  return response.data
 };
