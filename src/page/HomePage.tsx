@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import Banner from "../component/Banner";
 import cardBackground from "../../static/images/card-background.svg";
 import GreetingConfirmButton from "../component/GreetingConfirmButton";
@@ -67,7 +67,9 @@ const HomePageCardStack: React.FC<HomePageCardStackProps & { count: number }> = 
       .finally(() => {
         setIsLoading(false);
       });
-  }, [setEmojis]);
+  }, []);
+
+  console.log("emojis", emojis);
 
   if (isLoading) {
     return null;
@@ -130,7 +132,7 @@ const HomePage = () => {
     });
   }, []);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = useCallback(() => {
     if (!emojis || emojis.length === 0) return;
 
     const sortedEmojis = [...emojis].sort((a, b) => b.send_seq - a.send_seq);
@@ -147,7 +149,7 @@ const HomePage = () => {
       .catch((error) => {
         console.error("Error marking emoji as read:", error);
       });
-  };
+  }, [emojis]);
 
   const buttonText =
     count === 0 || (count > 0 && (!emojis || emojis.length === 0))

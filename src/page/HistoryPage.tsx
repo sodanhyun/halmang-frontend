@@ -31,6 +31,14 @@ const HistoryPage = () => {
       setCount(response.length);
       setHistory(response);
     });
+  }, []);
+
+  useEffect(() => {
+    const formattedDate = formatDate(currentDate);
+    fetchEmojiHistory(formattedDate).then((response) => {
+      setCount(response.length);
+      setHistory(response);
+    });
   }, [currentDate]);
 
   return (

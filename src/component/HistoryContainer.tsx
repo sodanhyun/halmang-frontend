@@ -4,6 +4,7 @@ import sun from "../../static/images/sun.svg";
 import { getStreamEmoji } from "../utils/emoji";
 
 const HistoryContainer = ({ e_id, sender_id, reg_time }: { e_id: number; sender_id: string; reg_time: string }) => {
+  console.log("reg_imte", reg_time);
   const [hour, minute] = reg_time.split("T")[1].split(":").map(Number);
   const timedivide = hour < 12 ? "오전" : "오후";
   const displayHour = hour % 12 || 12;
