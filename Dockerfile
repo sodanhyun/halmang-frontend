@@ -1,8 +1,8 @@
-FROM krmp-d2hub-idock.9rum.cc/goorm/node:18 AS build
+FROM krmp-d2hub-idock.9rum.cc/goorm/node:18
 
 WORKDIR /usr/src/app
 
-COPY krampoline/ ./
+COPY . .
 
 RUN corepack enable
 
@@ -14,12 +14,4 @@ RUN npm install -g serve
 
 EXPOSE 3000 
 
-COPY ./nginx.conf /etc/nginx/nginx.conf
-
-COPY --from=build /app/dist ./dist
-
-RUN chown -R www-data:www-data /var/www/html/dist
-
-EXPOSE 443 80
-
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["serve", "build"]
