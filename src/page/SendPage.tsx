@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import ImageSelector from "../component/ImageSelector";
 import GreetingSendButton from "../component/GreetingSendButton";
 import MessageIcon from "../../static/images/Message.svg";
 import SendModal from "../component/SendModal";
 import { sendEmoji } from "../api/emoji";
+import choseDefault from "../../static/images/choose-default.svg";
+import { cardImages } from "../utils/imageMapping";
 
 const SendPage = () => {
   const [selectedCardId, setSelectedCardId] = useState<number | null>(null);
+
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const handleSendClick = () => {
@@ -49,21 +52,14 @@ const SendPage = () => {
       </div>
       <ImageSelector onSelect={setSelectedCardId} />
       <div className="mt-auto w-full">
-        <GreetingSendButton
-          onClick={handleSendClick}
-          isDisabled={selectedCardId === null}
-        />
+        <GreetingSendButton onClick={handleSendClick} isDisabled={selectedCardId === null} />
       </div>
       {isModalVisible && (
         <SendModal
           visible={isModalVisible}
           onClose={handleCloseModal}
           onConfirm={handleConfirmSend}
-          selectedImage={
-            selectedCardId !== null
-              ? `/static/images/card_0${selectedCardId}_md.svg`
-              : "/static/images/choose-default.svg"
-          }
+          selectedImage={selectedCardId !== null ? cardImages[selectedCardId - 1].largeSrc : choseDefault}
         />
       )}
     </div>
