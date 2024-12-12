@@ -12,9 +12,9 @@ import Header from "./widget/Header";
 const AppContent = () => {
   return (
     <div className="flex justify-center bg-gray-100 min-h-screen">
-      <div className="grid grid-areas-layout grid-cols-layout grid-rows-layout gap-4 px-6 relative max-w-[390px] w-full bg-white shadow-md selection:bg-green-900 font-[pretendard]">
+      <div className="grid grid-areas-layout grid-cols-layout grid-rows-layout gap-4 relative max-w-[390px] w-full bg-white shadow-md selection:bg-green-900 font-[pretendard]">
         <Header />
-        <main className="grid-in-main">
+        <main className="grid-in-main px-6">
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/history" element={<HistoryPage />} />
