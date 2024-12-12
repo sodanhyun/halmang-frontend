@@ -2,6 +2,18 @@ module.exports = {
   content: ["index.html", "./src/**/*.{js,jsx,ts,tsx,vue,html}"],
   theme: {
     extend: {
+      gridTemplateAreas: {
+        layout: ["header header header header", "main main main main", "nav nav nav nav"],
+      },
+
+      gridTemplateColumns: {
+        layout: "1fr 1fr 1fr 1fr",
+      },
+
+      gridTemplateRows: {
+        layout: "auto 1fr auto",
+      },
+
       colors: {
         // NOTE: primary-brown
         "primary-brown-50": "#f8f6f4",
@@ -121,5 +133,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@savvywombat/tailwindcss-grid-areas")],
 };
