@@ -116,7 +116,13 @@ const HomePage = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
 
-  //SSE settings
+  useEffect(() => {
+    getUnreadEmojis().then((res) => {
+      setEmojis(res);
+      setTotalCount(res.length);
+    });
+
+    //SSE settings
     const eventSource = new EventSource("/api/sse");
     eventSource.onmessage = (event) => {
       const message = event.data;
@@ -148,12 +154,6 @@ const HomePage = () => {
       eventSource.close();
     };
     //SSE end
-
-  useEffect(() => {
-    getUnreadEmojis().then((res) => {
-      setEmojis(res);
-      setTotalCount(res.length);
-    });
   }, []);
 
   useEffect(() => {
@@ -177,9 +177,9 @@ const HomePage = () => {
       });
   }, [emojis]);
 
-  const buttonText = count === 0 || (count > 0 && (!emojis || emojis?.length === 0)) ? "안부 보내기" : "안부 확인하기";
+  const buttonText = count === 0 || (count > 0 && (!emojis || emojis.length === 0)) ? "안부 보내기" : "안부 확인하기";
 
-  const onNavigate = count === 0 || (count > 0 && (!emojis || emojis?.length === 0)) ? () => {} : undefined;
+  const onNavigate = count === 0 || (count > 0 && (!emojis || emojis.length === 0)) ? () => {} : undefined;
 
   return (
     <div className="flex flex-col h-full">
