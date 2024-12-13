@@ -6,7 +6,7 @@ import { judgeUserRole } from "../utils/user";
 const Banner = ({ count }: { count: number }) => {
   const { receiver_id } = useAuthStore();
   const bannerImage = receiver_id === "parent" ? ParentBannerImage : ChildBannerImage;
-  const bannerColor = receiver_id === "parent" ? "text-illustration-yellow" : "text-illustration-red";
+  const bannerColor = receiver_id === "parent" ? "text-illustration-red" : "text-illustration-yellow";
   const oppositeRole = judgeUserRole();
 
   return (

@@ -57,7 +57,7 @@ const SendPage = () => {
         <img src={MessageIcon} alt="Message Icon" className="w-5 h-5" />
       </div>
       <ImageSelector onSelect={setSelectedCardId} />
-      <div className="mt-auto w-full">
+      <div className="mt-auto w-full mb-[24px]">
         <GreetingSendButton onClick={handleSendClick} isDisabled={selectedCardId === null} />
       </div>
       {isModalVisible && (

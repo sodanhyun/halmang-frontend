@@ -7,7 +7,6 @@ import { EmojiReadResponse } from "../type/emoji";
 import { emojiMap } from "../constants";
 import noHistoryImage from "../../static/images/no_history.svg";
 import readAllEmojiImage from "../../static/images/complete.svg";
-import useAuthStore from "../store/useAuthStore";
 
 const HomePageCard = ({
   src,
@@ -21,7 +20,7 @@ const HomePageCard = ({
   totalCount: number;
 }) => {
   return (
-    <div className="w-[310px] h-[398px] relative">
+    <div className="w-[310px] h-[413px] relative">
       <img src={src} alt={alt} />
       <div className="absolute top-2 right-[1.5rem] w-[65px] h-[30px] px-[17px] py-1.5 opacity-80 bg-[#fcfcfc] rounded-[100px] flex flex-col justify-center items-center">
         <div className="flex justify-start items-center gap-1">
@@ -124,18 +123,18 @@ const HomePage = () => {
     });
 
     //SSE settings
-    const eventSource = new EventSource('/api/sse');
+    const eventSource = new EventSource("/api/sse");
     eventSource.onmessage = (event) => {
       const message = event.data;
       console.log("message: " + message);
-      if(message === "child" || message === "parent") {
+      if (message === "child" || message === "parent") {
         const receiverId = message;
         console.log("receiverId: " + receiverId);
         const authStorage = localStorage.getItem("auth-storage");
-        if(authStorage) {
+        if (authStorage) {
           const userId = JSON.parse(authStorage).state.userType.name;
           console.log("userId: " + userId);
-          if(receiverId === userId) {
+          if (receiverId === userId) {
             getUnreadEmojis().then((res) => {
               setEmojis(res);
               setTotalCount(res.length);
@@ -144,14 +143,13 @@ const HomePage = () => {
               setCount(res.count);
             });
           }
-        };
+        }
       }
-      
-    }
+    };
     eventSource.onerror = (event) => {
       console.error("Error occurred: ", event);
       eventSource.close();
-    }
+    };
     return () => {
       eventSource.close();
     };

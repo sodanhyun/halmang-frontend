@@ -25,7 +25,7 @@ const HistoryStream: React.FC<HistoryStreamProps> = ({ isToday, history }) => {
   }
 
   return (
-    <div className="flex flex-col items-center h-[503px] overflow-y-auto grow">
+    <div className="flex flex-col items-center h-[483px] overflow-y-auto grow">
       {history.map((entry) => (
         <HistoryContainer
           key={entry.send_seq}
