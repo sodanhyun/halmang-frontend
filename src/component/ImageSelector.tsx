@@ -27,7 +27,7 @@ const ImageSelector: React.FC<ImageSelectorProps> = ({ onSelect }) => {
           />
         ))}
       </div>
-      <div className="mt-4">
+      <div>
         {selectedCard !== null ? (
           <img
             src={cardImages.find((card) => card.id === selectedCard)?.largeSrc}
